@@ -19,3 +19,6 @@ export {
   createRequestLoggerMiddleware 
 } from './middleware/request-logger.middleware';
 export type { RequestLoggerOptions } from './middleware/request-logger.middleware';
+
+export { LogBuffer, getGlobalLogBuffer, setGlobalLogBuffer } from './log-buffer';
+export type { LogBufferQuery, LogListener } from './log-buffer';

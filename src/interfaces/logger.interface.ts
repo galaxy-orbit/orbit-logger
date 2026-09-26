@@ -32,6 +32,8 @@ export interface LoggerOptions {
   timestampFormat?: 'iso' | 'unix' | 'locale';
   prettyPrint?: boolean;
   colorize?: boolean;
+  /** Push entries into a LogBuffer for devtools (default: global buffer). `false` disables. */
+  buffer?: boolean | import('../log-buffer').LogBuffer;
 }
 
 export interface LoggerModuleOptions extends LoggerOptions {

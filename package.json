@@ -1,6 +1,6 @@
 {
   "name": "@galaxy-stack/orbit-logger",
-  "version": "0.1.6",
+  "version": "0.6.1",
   "description": "Structured logging module for Orbit framework",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,11 +8,12 @@
     "build": "bun build ./src/index.ts --outdir ./dist --target bun --packages external",
     "dev": "bun --watch src/index.ts",
     "test": "bun test",
+    "build:types": "bash scripts/build-types.sh",
     "changeset": "changeset"
   },
   "dependencies": {
-    "@galaxy-stack/orbit-core": "^0.1.4",
-    "@galaxy-stack/orbit-common": "^0.1.3"
+    "@galaxy-stack/orbit-core": "^0.2.0",
+    "@galaxy-stack/orbit-common": "^0.1.13"
   },
   "peerDependencies": {
     "reflect-metadata": "^0.2.0"
@@ -39,7 +40,7 @@
     "url": "git+https://github.com/galaxy-orbit/orbit-logger.git"
   },
   "bugs": {
-    "url": "https://github.com/galaxy-orbit/orbit/issues"
+    "url": "https://github.com/galaxy-orbit/orbit-cli/issues"
   },
   "homepage": "https://galaxy-orbit-framework.vercel.app",
   "devDependencies": {

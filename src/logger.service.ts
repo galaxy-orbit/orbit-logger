@@ -10,6 +10,7 @@ import { LOG_LEVELS, LOGGER_OPTIONS } from './interfaces/logger.interface';
 import { JsonFormatter } from './formatters/json.formatter';
 import { PrettyFormatter } from './formatters/pretty.formatter';
 import { ConsoleTransport } from './transports/console.transport';
+import { LogBuffer, getGlobalLogBuffer } from './log-buffer';
 
 @Injectable()
 export class LoggerService {
@@ -19,6 +20,7 @@ export class LoggerService {
   private transports: LogTransport[];
   private correlationId?: string;
   private timestampFormat: 'iso' | 'unix' | 'locale';
+  private buffer?: LogBuffer;
 
   constructor(
     @Optional() @Inject(LOGGER_OPTIONS) options?: LoggerOptions
@@ -27,6 +29,7 @@ export class LoggerService {
     this.level = opts.level || 'info';
     this.context = opts.context;
     this.timestampFormat = opts.timestampFormat || 'iso';
+    this.buffer = opts.buffer === false ? undefined : (opts.buffer instanceof LogBuffer ? opts.buffer : getGlobalLogBuffer());
     
     if (opts.formatter) {
       this.formatter = opts.formatter;
@@ -56,6 +59,7 @@ export class LoggerService {
       formatter: this.formatter,
       transports: this.transports,
       timestampFormat: this.timestampFormat,
+      buffer: this.buffer,
     });
     
     if (correlationId || this.correlationId) {
@@ -117,6 +121,10 @@ export class LoggerService {
         message: error.message,
         stack: error.stack,
       };
+    }
+
+    if (this.buffer) {
+      this.buffer.push(entry);
     }
 
     const formattedMessage = this.formatter.format(entry);
